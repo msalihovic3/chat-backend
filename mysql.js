@@ -10,12 +10,12 @@ var con = mysql.createConnection({
   });
   
   con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
+    if (err) console.log("Error");
+    else console.log("Connected!");
 
     var sql = "CREATE TABLE chatdbTable (id INT AUTO_INCREMENT PRIMARY KEY,user VARCHAR(255), text VARCHAR(255))";
     con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("Table created");
+      if (err) console.log("Error");
+      else console.log("Table created");
     });
   });

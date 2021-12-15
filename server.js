@@ -17,8 +17,9 @@ var con = mysql.createConnection({
 });
 
 con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+  if (err) {console.log("Error");}
+  else console.log("Connected!");
+  
 });
 
 //prilikom slanja zahtjeva za konekciju dodjeljuje se ime
@@ -54,8 +55,8 @@ io.on('connection', (socket) => {
       
       let sql = "INSERT INTO chatdbTable (user, text) VALUES (?, ?)"
       con.query(sql,[ msg.username, msg.message ], function (err, result) {
-        if (err) throw err;
-        console.log("1 record inserted");
+        if (err) console.log("Error");
+        else console.log("1 record inserted");
       }); 
     });
 
@@ -85,8 +86,8 @@ io.on('connection', (socket) => {
     socket.on("open-global", ({ username, id, privateUser }) => {
 
       con.query("SELECT user,text FROM chatdbTable", function (err, result, fields) {
-        if (err) throw err;
-        socket.emit("history-messages", {username:username,id:id, messages:result});
+        if (err) console.log("Error");
+        else socket.emit("history-messages", {username:username,id:id, messages:result});
       });   
       
       //obavijet za privatni chat
