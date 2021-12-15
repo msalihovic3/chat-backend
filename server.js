@@ -3,6 +3,7 @@ var mysql = require('mysql');
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+
 //za random ime korisnika koji se konektovao na socket
 const genUsername = require("unique-username-generator");
 //generisanje username za  korisnika koji se konektovao na socket
@@ -44,6 +45,7 @@ io.on('connection', (socket) => {
     //slanje konektovanom korisniku ime i konektovane korisnike prvi put
     socket.emit("name", user);
     socket.emit("users", users);
+    socket.emit("history-messages", {username:"",id:"", messages:messages});
     
     socket.on('chat-users', (msg) => {
       socket.broadcast.emit("users", users);
