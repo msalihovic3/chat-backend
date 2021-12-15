@@ -1,8 +1,12 @@
 var app = require('express')();
 var mysql = require('mysql');
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
 
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
 
 //za random ime korisnika koji se konektovao na socket
 const genUsername = require("unique-username-generator");
