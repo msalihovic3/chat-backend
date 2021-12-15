@@ -1,6 +1,12 @@
-var app = require('express')();
-var mysql = require('mysql');
-var http = require('http').createServer(app);
+
+const http = require('http');
+const port = process.env.PORT || 3000
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html');
+  res.end('<h1>Hello World</h1>');
+});
 
 const io = require('socket.io')(server, {
   cors: {
@@ -88,8 +94,6 @@ io.on('connection', (socket) => {
        
 });
 
-app.get('/', (req, res) => res.send('hello!'));
-
-http.listen(process.env.PORT || 3000, () => {
-  console.log('listening on *:3000');
+server.listen(port,() => {
+  console.log(`Server running at port `+port);
 });
